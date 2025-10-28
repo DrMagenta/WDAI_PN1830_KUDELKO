@@ -21,6 +21,10 @@ body {
   padding: 15vh 7vw 15vh 7vw;
 }
 
+#main-list > li > a {
+  font-weight: bold
+}
+
 #article {
   font-size: 2vw;
 }
