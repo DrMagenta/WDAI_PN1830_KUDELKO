@@ -72,11 +72,15 @@ nav .button {
   flex-grow: 1;
   border-radius: 30px;
   
-  background-color: #61A0AF/*#74B3CE*/;
+  background-color: #EFFA23 /*#61A0AF/*#74B3CE*/;
 
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
+}
+
+nav .button:hover {
+  transform: scale(1.1) perspective(1px);
 }
 
 nav .button span {
@@ -86,7 +90,7 @@ nav .button span {
   font-style: normal;
   font-size: 2vw;
   text-align: center;
-  color: #FCB0B3
+  color: #FC9E4F;
 }
 
 footer {
