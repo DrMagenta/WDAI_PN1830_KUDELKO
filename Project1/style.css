@@ -47,13 +47,46 @@ nav {
   grid-row-end: 3;
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
   background-color: #ADE25D;
 
   /*border-left: none;*/
+}
+
+nav h1 {
+  font-family: "Elms Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  color: #588157;
+}
+
+nav .button {
+  width: 80%;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  border-radius: 30px;
+  
+  background-color: #61A0AF/*#74B3CE*/;
+
+  display: inherit;
+  justify-content: inherit;
+  align-items: inherit;
+}
+
+nav .button span {
+  font-family: "Elms Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2vw;
+  text-align: center;
+  color: #FCB0B3
 }
 
 footer {
@@ -103,19 +136,37 @@ article h1 {
   margin-bottom: 2px;
 }
 
-article p {
+article p, figure figcaption {
   font-family: "Raleway", sans-serif;
   font-size: 130%;
+  text-align: justify;
 }
 
 article figure {
-  width: 90%;
+  width: 100%;
   height: auto;
   margin-left: 0;
   margin-right: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 article figure img {
-  width: inherit;
+  width: 85%;
   height: inherit;
 }
+
+
+article #location #map-container {
+  width: 100%;
+  height: auto;
+  margin-left: 0;
+  margin-right: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
