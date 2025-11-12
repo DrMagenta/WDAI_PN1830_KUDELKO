@@ -7,6 +7,7 @@ body {
     display: grid;
     grid-template-rows: 5fr 22fr 3fr;
     grid-template-columns: 1fr 4fr;
+    z-index: 0;
 }
 
 /*
@@ -30,7 +31,7 @@ header {
 
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   background-color: #3366CC;
@@ -39,6 +40,18 @@ header {
   border-top: none;
   border-left: none;
   */
+}
+
+header img {
+  height: 13vh;
+  width: auto;
+  margin-left: 40px;
+  margin-right: 20px;
+}
+
+header span {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 nav {
@@ -136,8 +149,8 @@ article h1 {
   font-optical-sizing: auto;
   font-weight: normal;
   font-style: normal;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 article p, figure figcaption {
@@ -172,5 +185,74 @@ article #location #map-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
+}
+
+article .gallery {
+  width: 64vw;
+  height: 36vw; /*Calculated to maintain image proportion*/ 
+  align-self: center;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow: hidden;
+}
+  
+article .gallery .slide-button {
+  width: 9%;
+  height: 100%;
+  background-color: #08605F;
+  z-index: 1;
+}
+
+article .gallery .slide-left {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  margin-right: 1%;
+}
+
+article .gallery .slide-right {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-left: 1%;
+}
+  
+article .gallery .slide-window {
+  width: 80%;
+  height: 98%;
+  
+  border-style: solid;
+  border-radius: 20px;
+  border-color: #08605F;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+
+}
+
+article .gallery .slider {
+  width: auto;
+  height: 100%;
+  position: relative;
+  left: 0;
+
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 50vw;
+  align-items: center;
+  justify-content: center;
+  grid-auto-columns: max-content;
+
+  transition: left 0.5s ease-in-out;
+}
+
+article .gallery .slider img {
+  object-fit: contain;
+  width: 50vw;
+  height: 95%;
+
+  margin: 0;
+  display: block;
 }
 
