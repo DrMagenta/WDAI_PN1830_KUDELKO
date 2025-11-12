@@ -18,7 +18,7 @@ body > * {
 }
 */
 
-header {
+header#main-header {
   font-family: "Elms Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: normal;
@@ -42,14 +42,14 @@ header {
   */
 }
 
-header img {
+header#main-header img {
   height: 13vh;
   width: auto;
   margin-left: 40px;
   margin-right: 20px;
 }
 
-header span {
+header#main-header span {
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -144,6 +144,24 @@ article {
   overflow-y: scroll;
 }
 
+article header {
+  width: 100%;
+  height: auto;
+  margin-bottom: 2%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Elms Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 8vh;
+  text-align: center;
+}
+
 article h1 {
   font-family: "Elms Sans", sans-serif;
   font-optical-sizing: auto;
@@ -195,7 +213,6 @@ article .gallery {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  overflow: hidden;
 }
   
 article .gallery .slide-button {
@@ -203,6 +220,19 @@ article .gallery .slide-button {
   height: 100%;
   background-color: #08605F;
   z-index: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+article .gallery .slide-button span {
+  font-size: 8vh;
+  color: white;
+}
+
+article .gallery .slide-button:hover {
+  opacity: 60%;
 }
 
 article .gallery .slide-left {
@@ -228,7 +258,7 @@ article .gallery .slide-window {
   display: flex;
   flex-direction: row;
   justify-content: left;
-
+  overflow: hidden;
 }
 
 article .gallery .slider {
