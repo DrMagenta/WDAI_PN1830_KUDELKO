@@ -206,26 +206,6 @@ article figure img {
 }
 
 
-article .image-container {
-  width: 100%;
-  height: auto;
-
-  display: grid;
-  grid-auto-flow: column;
-  align-items: center;
-  justify-items: center;
-}
-
-article .image-container img {
-  height: auto;
-  width: 80%;
-  border-radius: 20px;
-}
-
-article ol > li{
-  text-indent: none;
-}
-
 article #location #map-container {
   width: 100%;
   height: auto;
@@ -317,5 +297,49 @@ article .gallery .slider img {
 
   margin: 0;
   display: block;
+
+  border-radius: 20px;
 }
+
+
+article .image-container {
+  width: 100%;
+  height: auto;
+
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-items: center;
+}
+
+article .image-container img {
+  height: auto;
+  width: 80%;
+  border-radius: 20px;
+}
+
+article ol > li{
+  text-indent: none;
+}
+
+article .video-container {
+  width: 520px;
+  height: 300px;
+}
+
+
+/*
+These are used as literal variables to store values inside the
+HTML document. I know this is unholy, I'm sorry.
+*/
+
+.variable {
+  display: none;
+  width: 0;
+  height: 0;
+  position: fixed;
+  bottom: 0;
+  right: 0
+}
+
 
