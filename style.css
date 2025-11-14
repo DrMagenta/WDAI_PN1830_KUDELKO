@@ -171,10 +171,22 @@ article h1 {
   margin-bottom: 10px;
 }
 
-article p, figure figcaption {
+article section {
+  width: 100%
+}
+
+article p {
+  width: 100%;
+
   font-family: "Raleway", sans-serif;
   font-size: 130%;
   text-align: justify;
+}
+
+article figure figcaption {
+  font-family: "Raleway", sans-serif;
+  font-size: 130%;
+  text-align: center;
 }
 
 article figure {
@@ -193,6 +205,26 @@ article figure img {
   height: inherit;
 }
 
+
+article .image-container {
+  width: 100%;
+  height: auto;
+
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-items: center;
+}
+
+article .image-container img {
+  height: auto;
+  width: 80%;
+  border-radius: 20px;
+}
+
+article ol > li{
+  text-indent: none;
+}
 
 article #location #map-container {
   width: 100%;
@@ -229,6 +261,7 @@ article .gallery .slide-button {
 article .gallery .slide-button span {
   font-size: 8vh;
   color: white;
+  text-align: center;
 }
 
 article .gallery .slide-button:hover {
