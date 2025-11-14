@@ -1,9 +1,3 @@
-const nextButtons = document.getElementsByClassName("slide-right");
-const prevButtons = document.getElementsByClassName("slide-left");
-const sliders = document.getElementsByClassName("slider");
-const gallery_sizes = [5, 3, 15, 5, 4, 4];
-const slider_objs = [];
-
 class Slider
 {
     self;
@@ -42,6 +36,32 @@ class Slider
         }
     }
 }
+
+function parseHTMLVarToArray(variableName)
+/* The function reads values stored in variables in the HTML document. I know
+there have never been variables in HTML. Now there are. */
+{
+    let output = []
+
+    let varObjs = document.getElementsByClassName(variableName);
+    console.log(varObjs)
+
+    for (let i = 0; i < varObjs.length; i++)
+    {
+        //console.log(varObjs[i].style.getPropertyValue("--value"));
+        let objValue = parseInt(varObjs[i].style.getPropertyValue("--value"));
+        output.push(objValue);
+    }
+
+    return output;
+}
+
+const nextButtons = document.getElementsByClassName("slide-right");
+const prevButtons = document.getElementsByClassName("slide-left");
+const sliders = document.getElementsByClassName("slider");
+const slider_objs = [];
+const gallery_sizes = parseHTMLVarToArray("gallery-size");
+console.log(gallery_sizes);
 
 
 for (let i = 0; i < nextButtons.length; i++)
