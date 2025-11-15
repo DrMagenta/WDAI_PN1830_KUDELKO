@@ -303,7 +303,6 @@ article .gallery .slider img {
   border-radius: 20px;
 }
 
-
 article .image-container {
   width: 100%;
   height: auto;
@@ -360,6 +359,13 @@ article form textarea {
 article form textarea {
   width: 70%;
   height: 66%
+}
+
+article video {
+  width: 40%;
+  height: auto;
+  align-self: center;
+  border-radius: 20px;
 }
 
 
