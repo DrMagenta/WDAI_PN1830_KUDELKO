@@ -66,6 +66,8 @@ nav {
 
   background-color: #ADE25D;
 
+  padding-bottom: 10px;
+
   /*border-left: none;*/
 }
 
@@ -80,8 +82,8 @@ nav h1 {
 nav .button {
   width: 80%;
   height: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 7px;
+  margin-bottom: 7px;
   flex-grow: 1;
   border-radius: 30px;
   
@@ -325,6 +327,39 @@ article ol > li{
 article .video-container {
   width: 520px;
   height: 300px;
+}
+
+article form {
+  height: 90%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+article form label {
+  font-family: "Raleway", sans-serif;
+}
+
+article form > input, select, textarea {
+  margin-bottom: 20px;
+  background-color: #FFBE86;
+  color: #796465;
+  padding: 4px;
+}
+
+aritcle form input {
+  border-color: #796465
+}
+
+article form textarea {
+  border-radius: 20px;
+  padding: 10px;
+}
+
+article form textarea {
+  width: 70%;
+  height: 66%
 }
 
 

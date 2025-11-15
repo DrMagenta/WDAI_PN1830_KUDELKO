@@ -2,6 +2,7 @@ var subpages = [
     'index',
     'pros',
     'attractions',
+    'contact'
 ];
 
 var buttons = document.getElementsByClassName('button');
