@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+    <title>(Incredibly) Secure password generator</title>
+  </head>
+  <body>
+    <main>
+
+        <h1>Generate your password</h1>
+        <section id="controls-container">
+
+          <div>
+            <label for="min-size">Minimum password length</label>
+            <input type="number" id="min-size" name="min-size">
+          </div>
+
+          <div>
+            <label for="max-size">Maximum password length</label>
+            <input type="number" id="max-size" name="max-size">
+          </div>
+          
+          <div>
+            <label for="capital-letters"> Include capital letters?</label>
+            <input type="checkbox" id="capital-letters" name="capital-letters">
+          </div>
+
+          <div>
+            <label for="spec-chars">Include special characters?</label>
+            <input type="checkbox" id="spec-chars" name="spec-chars">
+          </div>
+
+          <input type="button" id="gen-button"value="Generate">
+
+        </section>
+      </main>
+    <script src="script.js"></script>
+  </body>
+</html>
