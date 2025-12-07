@@ -1,13 +1,11 @@
 var buttons = document.querySelectorAll("input");
 
-var min10sObj = document.getElementById("min10s");
-var minutesObj = document.getElementById("mins");
-var sec10sObj = document.getElementById("sec10s");
+var secBlockObj = document.getElementById("sec-block");
+var minBlockObj = document.getElementById("min-block");
 var secondsObj = document.getElementById("secs");
+var minutesObj = document.getElementById("mins");
 
-var min10s = 0;
 var minutes = 0;
-var sec10s = 0
 var seconds = 0;
 
 var active = false;
@@ -32,41 +30,34 @@ for (let i = 0; i < buttons.length; i++)
                 resetWatch();
                 updateWatch();
             })
+            break;
     }
 }
 
 function resetWatch()
 {
-    seconds = sec10s = minutes = min10s = 0;
+    minBlockObj.style.display = "none"
+    seconds = minutes = 0;
 }
 
 function updateWatch()
 {
     if (active)
     { 
-        if (min10s >= 6) return;
 
         seconds++;
-        if (seconds >= 10)
+        if (seconds >= 60)
         {
             seconds = 0;
-            sec10s++;
-        }
-        if (sec10s >= 6)
-        {
-            sec10s = 0;
             minutes++;
         }
-        if (minutes >= 10)
+        if (minutes > 0)
         {
-            minutes = 0;
-            min10s++;
+            minBlockObj.style.display = "inline"
         }
     }
     secondsObj.innerHTML = seconds;
-    sec10sObj.innerHTML = sec10s
-    minutesObj.innerHTML = minutes
-    min10sObj.innerHTML = min10s;
+    minutesObj.innerHTML = minutes;
 }
 
 setInterval(updateWatch, 1000);

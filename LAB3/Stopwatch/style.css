@@ -24,7 +24,7 @@ main {
     align-self: center;
 
     font-family: "JetBrains Mono", sans-serif;
-    font-size: 10vw;
+    font-size: 4.7vw;
     color: red;
 }
 
@@ -32,6 +32,10 @@ main h1 {
     margin-top: 20px;
     margin-bottom: 20px;
     white-space: nowrap;
+}
+
+#min-block {
+  display: none;
 }
 
 #controls-container {
