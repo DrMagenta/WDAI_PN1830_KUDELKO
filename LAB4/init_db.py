@@ -14,7 +14,20 @@ books_to_insert = [
     ("Fahrenheit 451", "Ray Bradbury", 1953)
 ]
 
+orders_to_insert = [
+    (1, 1, 1),  # użytkownik 1 zamawia 1 szt. książki 1
+    (1, 3, 2),  # użytkownik 1 zamawia 2 szt. książki 3
+    (2, 2, 1),  # użytkownik 2 zamawia 1 szt. książki 2
+    (3, 5, 4),  # użytkownik 3 zamawia 4 szt. książki 5
+    (2, 1, 1),  # użytkownik 2 zamawia 1 szt. książki 1
+]
+
 cur = connection.cursor()
+
+cur.executemany(
+    "INSERT INTO orders (userId, bookId, quantity) VALUES (?, ?, ?)",
+    orders_to_insert
+)
 
 cur.executemany(
     "INSERT INTO books (title, author, year) VALUES (?, ?, ?)",
