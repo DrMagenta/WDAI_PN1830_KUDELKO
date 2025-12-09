@@ -20,7 +20,7 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-@app.route("/books/<int:bookId>")
+@app.route("/api/books/<int:bookId>")
 def get_book(bookId):
     conn = get_db_connection()
     book = conn.execute('SELECT * FROM books WHERE id = ?',
@@ -32,7 +32,7 @@ def get_book(bookId):
     result = {k: book[k] for k in book.keys()}
     return json.dumps(result)
 
-@app.route("/books")
+@app.route("/api/books")
 def getBooks():
     conn = get_db_connection()
     books = conn.execute('SELECT * FROM books').fetchall()
@@ -43,7 +43,7 @@ def getBooks():
     return json.dumps(result)
 
 
-@app.route("/books",  methods=['POST'])
+@app.route("/api/books",  methods=['POST'])
 def addBook():
     title = request.get_json().get('title')
     author = request.get_json().get('author')
@@ -71,7 +71,7 @@ def addBook():
         conn.close()
         return f'Post was successfully added. Book ID: {id}', 200
     
-@app.route("/books/<int:bookId>", methods=["DELETE"])
+@app.route("/api/books/<int:bookId>", methods=["DELETE"])
 def deleteBook(bookId):
     conn = get_db_connection()
     conn.execute("DELETE FROM books WHERE id = ?", (bookId,))
