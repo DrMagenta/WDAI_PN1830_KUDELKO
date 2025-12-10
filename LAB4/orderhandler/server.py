@@ -19,7 +19,7 @@ def get_db_connection():
 @app.route("/api/orders/<int:userId>")
 def get_user_orders(userId):
     conn = get_db_connection()
-    user_orders = conn.execute('SELECT bookId, quantity FROM orders WHERE userId = ?',
+    user_orders = conn.execute('SELECT id, bookId, quantity FROM orders WHERE userId = ?',
                         (userId,)).fetchall()
     conn.close()
     if user_orders is None:
@@ -64,6 +64,18 @@ def make_order():
         id = str(max_id['max_id'] + 1)
         
         return id, 200
+    
+@app.route("/api/orders/<int:orderId>", methods=["DELETE"])
+def delete_order(orderId):
+    conn = get_db_connection()
+    conn.execute("DELETE FROM orders WHERE id = ?", (orderId,))
+    
+    conn.commit()
+    conn.close()
+    
+    return "Order deleted", 200
 
 if __name__ == '__main__':
     app.run(host="localhost", port=3002)
+    
+def updat
