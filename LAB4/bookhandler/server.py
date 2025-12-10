@@ -69,7 +69,7 @@ def addBook():
         id = id['id']
         conn.commit()
         conn.close()
-        return f'Post was successfully added. Book ID: {id}', 200
+        return f'Book was successfully added. Book ID: {id}', 200
     
 @app.route("/api/books/<int:bookId>", methods=["DELETE"])
 def deleteBook(bookId):
