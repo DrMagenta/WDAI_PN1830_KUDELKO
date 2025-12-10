@@ -32,7 +32,7 @@ def get_user_orders(userId):
 
 @app.route('/api/orders', methods=["POST"])
 def make_order():
-    bookId = int(request.get_json().get('bookId'))
+    bookId = request.get_json().get('bookId')
     userId = request.get_json().get('userId')
     quantity = request.get_json().get('quantity')
     
@@ -45,6 +45,7 @@ def make_order():
     elif not quantity:
         return 'Quantity of books is required!', 400
     
+    bookId = int(bookId)
     book_response = requests.get(f'http://localhost:3001/api/books/{bookId}')
     
     if book_response.status_code == 404:
