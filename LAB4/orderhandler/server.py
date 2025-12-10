@@ -75,7 +75,43 @@ def delete_order(orderId):
     
     return "Order deleted", 200
 
+    
+
+@app.route('/api/orders/<int:orderId>', methods=["PATCH"])
+def update_order(orderId):
+    bookId = request.get_json().get("bookId")
+    userId = request.get_json().get("userId")
+    quantity = request.get_json().get("quantity")
+    
+    
+    conn = get_db_connection()
+    
+    order_data = conn.execute('SELECT bookId, userId, quantity FROM orders WHERE id = ?',
+                              (orderId,)).fetchone()
+    
+    if order_data is None:
+        abort(404)
+    
+    order = dict(order_data)
+    
+    stored_userId = order['userId']
+    stored_bookId = order['bookId']
+    stored_quantity = order['quantity']
+    
+    if not bookId:
+        bookId = stored_bookId
+    if not userId:
+        userId = stored_userId
+    if not quantity:
+        quantity = stored_quantity
+        
+    conn.execute('UPDATE orders SET bookId = ?, userId = ?, quantity = ? WHERE id = ?',
+                 (bookId, userId, quantity, orderId))
+    
+    conn.commit()
+    conn.close()
+    
+    return "Order updated", 200
+
 if __name__ == '__main__':
     app.run(host="localhost", port=3002)
-    
-def updat
