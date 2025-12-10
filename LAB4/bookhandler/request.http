@@ -1,8 +1,0 @@
-POST http://localhost:3002/api/orders HTTP/2
-Content-Type: application/json
-
-{
-    "userId": "2",
-    "bookId": "4",
-    "quantity": "2"
-}
