@@ -39,17 +39,19 @@ def token_required(f):
                 
                 username = data['public_id']
                 
-                stored_username = conn.execute('SELECT username FROM users WHERE username = ?',
-                                               (username,))
+                stored_user = conn.execute('SELECT username, id FROM users WHERE username = ?',
+                                               (username,)).fetchone()
                 conn.commit()
                 conn.close()
                 
-                if stored_username is None:
+                if stored_user is None:
                     return make_response(jsonify({"message": "Niepoprawny token!"}), 401)
+                else:
+                    current_user = stored_user['id']
                     
             
             
-        return f(*args, **kwargs)
+        return f(*args, **kwargs, current_user=str(current_user))
     return decorator
 
 @app.route("/api/orders/<int:userId>")
@@ -68,7 +70,7 @@ def get_user_orders(userId):
 
 @app.route('/api/orders', methods=["POST"])
 @token_required
-def make_order():
+def make_order(current_user):
     bookId = request.get_json().get('bookId')
     userId = request.get_json().get('userId')
     quantity = request.get_json().get('quantity')
@@ -81,6 +83,9 @@ def make_order():
     
     elif not quantity:
         return 'Quantity of books is required!', 400
+    
+    elif userId != current_user and current_user != 'admin':
+        return "Cannot modify another user's orders!", 403
     
     bookId = int(bookId)
     book_response = requests.get(f'http://localhost:3001/api/books/{bookId}')
@@ -104,23 +109,33 @@ def make_order():
     
 @app.route("/api/orders/<int:orderId>", methods=["DELETE"])
 @token_required
-def delete_order(orderId):
+def delete_order(orderId, current_user):
+    
+    access_granted = False
+    
     conn = get_db_connection()
-    conn.execute("DELETE FROM orders WHERE id = ?", (orderId,))
+    
+    stored_order = conn.execute('SELECT userId FROM orders WHERE id = ?',
+                 (orderId,)).fetchone()
+    
+    if current_user == 'admin' or int(current_user) == stored_order['userId']:
+        access_granted = True
+        conn.execute("DELETE FROM orders WHERE id = ?", (orderId,))
     
     conn.commit()
     conn.close()
     
-    return "Order deleted", 200
+    return ("Order deleted", 200) if access_granted else ("Cannot delete other users' orders!", 403)
 
     
 
 @app.route('/api/orders/<int:orderId>', methods=["PATCH"])
 @token_required
-def update_order(orderId):
+def update_order(orderId, current_user):
     bookId = request.get_json().get("bookId")
     userId = request.get_json().get("userId")
     quantity = request.get_json().get("quantity")
+    access_granted = False
     
     
     conn = get_db_connection()
@@ -146,13 +161,16 @@ def update_order(orderId):
     if not quantity:
         quantity = stored_quantity
         
-    conn.execute('UPDATE orders SET bookId = ?, userId = ?, quantity = ? WHERE id = ?',
-                 (bookId, userId, quantity, orderId))
+        
+    if current_user == 'admin' or int(current_user) == userId:
+        access_granted = True    
+        conn.execute('UPDATE orders SET bookId = ?, userId = ?, quantity = ? WHERE id = ?',
+                    (bookId, userId, quantity, orderId))
     
     conn.commit()
     conn.close()
     
-    return "Order updated", 200
+    return ("Order updated", 200) if access_granted else ("Cannot modify other users' orders!", 403)
 
 if __name__ == '__main__':
     app.run(host="localhost", port=3002)
