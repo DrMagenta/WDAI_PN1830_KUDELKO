@@ -1,6 +1,4 @@
 from flask import Flask, jsonify, make_response, request, abort
-import requests
-import threading
 import json
 import jwt
 import sqlite3
@@ -10,10 +8,6 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 app = Flask(__name__)
-
-@app.route("/")
-def hello():
-    return "Hello there!"
 
 def get_db_connection():
     conn = sqlite3.connect(PROJECT_ROOT / 'database.db')
