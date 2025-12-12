@@ -16,6 +16,42 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+def token_required(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        headers = request.headers
+        bearer = headers.get('Authorization')
+        if not bearer:
+            return make_response(jsonify({"message": "Brak tokena!"}), 401)
+        
+        token = bearer
+
+        try:
+            data = jwt.decode(token, 'SECRET_KEY', algorithms=['HS256'])
+        except:
+            return make_response(jsonify({"message": "Token niepoprawny!"}), 401)
+        else:
+            
+            if data['public_id'] == 'admin':
+                current_user = 'admin'
+            else:
+                conn = get_db_connection()
+                
+                username = data['public_id']
+                
+                stored_username = conn.execute('SELECT username FROM users WHERE username = ?',
+                                               (username,))
+                conn.commit()
+                conn.close()
+                
+                if stored_username is None:
+                    return make_response(jsonify({"message": "Niepoprawny token!"}), 401)
+                    
+            
+            
+        return f(*args, **kwargs)
+    return decorator
+
 @app.route("/api/orders/<int:userId>")
 def get_user_orders(userId):
     conn = get_db_connection()
@@ -31,6 +67,7 @@ def get_user_orders(userId):
     return json.dumps(result)
 
 @app.route('/api/orders', methods=["POST"])
+@token_required
 def make_order():
     bookId = request.get_json().get('bookId')
     userId = request.get_json().get('userId')
@@ -61,11 +98,12 @@ def make_order():
         conn.commit()
         conn.close()
         
-        id = str(max_id['max_id'] + 1)
+        id = str(max_id['max_id'])
         
         return id, 200
     
 @app.route("/api/orders/<int:orderId>", methods=["DELETE"])
+@token_required
 def delete_order(orderId):
     conn = get_db_connection()
     conn.execute("DELETE FROM orders WHERE id = ?", (orderId,))
@@ -78,6 +116,7 @@ def delete_order(orderId):
     
 
 @app.route('/api/orders/<int:orderId>', methods=["PATCH"])
+@token_required
 def update_order(orderId):
     bookId = request.get_json().get("bookId")
     userId = request.get_json().get("userId")
@@ -90,6 +129,8 @@ def update_order(orderId):
                               (orderId,)).fetchone()
     
     if order_data is None:
+        conn.commit()
+        conn.close()
         abort(404)
     
     order = dict(order_data)

@@ -16,16 +16,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-@app.route("/api/users")
-def getPosts():
-    conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM users').fetchall()
-    conn.close()
-    result = []
-    for item in posts:
-      result.append({k: item[k] for k in item.keys()})
-    return json.dumps(result)
-
 @app.route('/api/register', methods=["POST"])
 def register_user():
     username = request.get_json().get("username")

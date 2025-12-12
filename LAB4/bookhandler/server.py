@@ -20,6 +20,26 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+def token_required(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        headers = request.headers
+        bearer = headers.get('Authorization')
+        if not bearer:
+            return make_response(jsonify({"message": "Brak tokena!"}), 401)
+
+        token = bearer#.split(".")[1] 
+
+        try:
+            data = jwt.decode(token, 'SECRET_KEY', algorithms=['HS256'])
+            if data['public_id'] != 'admin':
+                return make_response(jsonify({"message": "Niepoprawny token!"}), 401)
+            current_user = 'admin'
+        except:
+            return make_response(jsonify({"message": "Token niepoprawny!"}), 401)
+        return f(*args, **kwargs)
+    return decorator
+
 @app.route("/api/books/<int:bookId>")
 def get_book(bookId):
     conn = get_db_connection()
@@ -44,6 +64,7 @@ def getBooks():
 
 
 @app.route("/api/books",  methods=['POST'])
+@token_required
 def addBook():
     title = request.get_json().get('title')
     author = request.get_json().get('author')
@@ -72,6 +93,7 @@ def addBook():
         return f'Book was successfully added. Book ID: {id}', 200
     
 @app.route("/api/books/<int:bookId>", methods=["DELETE"])
+@token_required
 def deleteBook(bookId):
     conn = get_db_connection()
     conn.execute("DELETE FROM books WHERE id = ?", (bookId,))
